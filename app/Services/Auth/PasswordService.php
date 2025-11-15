@@ -1,50 +1,44 @@
 <?php
 
-namespace App\Services\User\Auth;
+namespace App\Services\Auth;
 
 use App\Helpers\ApiResponse;
-use App\Models\PasswordResetToken;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Models\User;
-use App\Notifications\User\Auth\PasswordReset\RequestTokenNotification;
+use App\Notifications\Auth\PasswordResetCodeNotification;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PasswordService extends ApiResponse
 {
-    public function __construct(protected User $user, protected PasswordResetToken $passwordResetToken)
+    public function __construct(protected User $user)
     {
     }
 
-    public function reset(array $data): JsonResponse
+    public function reset($data): JsonResponse
     {
-        return DB::transaction(function () use ($data) {
-            $query = $this->passwordResetToken->where([
-                'token' => $data['token'],
-                'email' => $data['email'],
-            ]);
+        $user = User::where('email', $data['email'])->firstOrFail();
 
-            $passwordResetToken = $query->with('user')->first();
+        $user->password = $data['password'];
+        $user->save();
 
-            $passwordResetToken->user->update([
-                'password' => $data['password'],
-            ]);
+        Cache::forget("password_reset_{$user->email}");
 
-            $query->delete();
-
-            return $this->successMessageResponse("Password reset successfully.");
-        });
+        return $this->successMessageResponse('Password has been reset successfully.');
     }
 
-    public function requestToken($email): JsonResponse
+
+    public function sendOtp($email): JsonResponse
     {
         $user = User::where('email', $email)->first();
-        if ($user) {
-            $passwordResetToken = $this->passwordResetToken->updateOrCreate(
-            ['email' => $email],
-            ['token' => rand(100000, 999999),]);
-            $user->notify(new RequestTokenNotification($passwordResetToken->token));
-        }
 
-        return $this->successMessageResponse("Password reset token sent.");
+        $token = random_int(100000, 999999);
+
+        Cache::put("password_reset_{$user->email}", $token, 3600);
+
+        $user->notify(new PasswordResetCodeNotification($token));
+
+        return $this->successMessageResponse('Password reset code sent to your email.');
     }
 }

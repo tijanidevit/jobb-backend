@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Enums\User\UserRoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
@@ -16,7 +18,11 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
+            'role' => [
+                'required',
+                Rule::in(UserRoleEnum::toArray())
+            ],
+            'password' => 'required|string|min:6',
         ];
     }
 }

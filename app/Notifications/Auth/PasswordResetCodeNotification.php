@@ -7,23 +7,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ConfirmEmailNotification extends Notification implements ShouldQueue
+class PasswordResetCodeNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct(protected string $token)
+    public string $token;
+
+    public function __construct(string $token)
     {
-        //
+        $this->token = $token;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
     public function via(object $notifiable): array
     {
         return ['mail'];
@@ -32,15 +26,14 @@ class ConfirmEmailNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Verify Your Email Address')
+            ->subject('Password Reset Request')
             ->greeting('Hello '.$notifiable->name.',')
-            ->line('Welcome! To complete your registration, please verify your email address.')
-            ->line('Use the verification code below:')
+            ->line('Use the password reset code below:')
             ->line('')
             ->line('**'.$this->token.'**')
             ->line('')
             ->line('This code will expire in **1 hour**.')
-            ->line('If you didn’t request this, you can safely ignore this message.')
+            ->line('If you didn’t request a password reset, ignore this message.')
             ->salutation('The '.config('app.name').' Team');
     }
 }
