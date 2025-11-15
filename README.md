@@ -1,8 +1,8 @@
 ## **Installation**
 
 ```bash
-git clone https://github.com/tijanidevit/laravel-api-boilerplate.git
-cd laravel-api-boilerplate
+git clone https://github.com/tijanidevit/jobb-backend.git
+cd jobb-backend
 composer install
 cp .env.example .env
 php artisan key:generate
