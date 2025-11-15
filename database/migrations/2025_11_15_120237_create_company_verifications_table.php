@@ -16,13 +16,16 @@ return new class extends Migration
 
             $table->foreignUuid('company_id');
 
-            $table->string('document_type'); // cac, id_card, utility_bill
-            $table->string('document'); // file path of uploaded doc
+            $table->string('document_type');
+            $table->string('document');
 
             $table->string('status')->default('pending');
-            // pending | approved | rejected
 
             $table->text('approval_note')->nullable();
+
+            $table->index('company_id');
+            $table->index(['company_id', 'document_type']);
+
             $table->timestamps();
         });
     }

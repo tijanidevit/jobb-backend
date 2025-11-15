@@ -27,6 +27,7 @@ class UserResource extends JsonResource
             'updated_at' => $this->updated_at,
 
             'company' => $this->whenLoaded('company'),
+            'candidate' => $this->whenLoaded('candidate'),
         ];
     }
 }

@@ -11,17 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saved_vacancies', function (Blueprint $table) {
+        Schema::create('candidate_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
-            $table->foreignUuid('vacancy_id');
             $table->foreignUuid('candidate_id');
-
+            $table->string('company_name');
+            $table->string('position');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
-            $table->unique(['vacancy_id', 'candidate_id']);
-
-            $table->index('vacancy_id');
             $table->index('candidate_id');
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saved_jobs');
+        Schema::dropIfExists('candidate_experiences');
     }
 };

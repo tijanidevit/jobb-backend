@@ -1,21 +1,30 @@
 <?php
 
+use App\Http\Controllers\Candidate\ProfileController;
 use App\Modules\Candidate\Controllers\CandidateController;
 use App\Modules\Jobs\Controllers\VacancyController;
 use Illuminate\Support\Facades\Route;
 
 // Candidate Routes
 Route::prefix('candidate')->name('candidate.')->group(function () {
+
     // Profile
-    Route::get('profile', [CandidateController::class, 'profile'])->name('profile.show');
-    Route::post('profile/update', [CandidateController::class, 'updateProfile'])->name('profile.update');
+    Route::prefix('profile')->name('profile.')->controller(ProfileController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::patch('/', 'updateProfile')->name('update');
+    });
+
+
+    // Profile
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::patch('profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
 
     // Resumes
     Route::prefix('resumes')->name('resumes.')->group(function () {
-        Route::get('/', [CandidateController::class, 'resumes'])->name('index');
-        Route::post('/', [CandidateController::class, 'storeResume'])->name('store');
-        Route::post('{id}/update', [CandidateController::class, 'updateResume'])->name('update');
-        Route::delete('{id}', [CandidateController::class, 'destroyResume'])->name('destroy');
+        Route::get('/', [CandidateResumeController::class, 'index'])->name('index');
+        Route::post('/', [CandidateResumeController::class, 'store'])->name('store');
+        Route::post('{id}/update', [CandidateResumeController::class, 'update'])->name('update');
+        Route::delete('{id}', [CandidateResumeController::class, 'destroy'])->name('destroy');
     });
 
 

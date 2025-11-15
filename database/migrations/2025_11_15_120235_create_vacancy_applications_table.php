@@ -12,16 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vacancy_applications', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        $table->uuid('id')->primary();
 
-            $table->foreignUuid('vacancy_id');
-            $table->foreignUuid('user_id');
+        $table->foreignUuid('vacancy_id');
+        $table->foreignUuid('candidate_id');
 
-            $table->string('resume');
-            $table->text('cover_letter')->nullable();
-            $table->string('status')->default('pending');
-            $table->timestamps();
-        });
+        $table->string('resume');
+        $table->text('cover_letter')->nullable();
+        $table->string('status')->default('pending');
+
+        $table->unique(['vacancy_id', 'candidate_id']);
+
+        $table->index('vacancy_id');
+        $table->index('candidate_id');
+
+        $table->index(['vacancy_id', 'status']);
+        $table->index(['candidate_id', 'status']);
+
+        $table->timestamps();
+    });
+
     }
 
     /**

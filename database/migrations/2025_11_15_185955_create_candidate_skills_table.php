@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saved_vacancies', function (Blueprint $table) {
+        Schema::create('candidate_skills', function (Blueprint $table) {
             $table->uuid('id')->primary();
-
-            $table->foreignUuid('vacancy_id');
             $table->foreignUuid('candidate_id');
-
+            $table->string('skill');
+            $table->string('level')->nullable(); // beginner, intermediate, advanced
             $table->timestamps();
 
-            $table->unique(['vacancy_id', 'candidate_id']);
 
-            $table->index('vacancy_id');
             $table->index('candidate_id');
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saved_jobs');
+        Schema::dropIfExists('candidate_skills');
     }
 };

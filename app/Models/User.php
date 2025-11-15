@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, HasUuids, MustVerifyEmail;
+    use HasFactory, Notifiable, HasApiTokens, HasUuids;
 
     /**
      * The attributes that are mass assignable.
@@ -59,13 +59,8 @@ class User extends Authenticatable
         return $this->hasOne(Company::class);
     }
 
-    public function vacanciesApplied()
+    public function candidate(): HasOne
     {
-        return $this->hasMany(VacancyApplication::class);
-    }
-
-    public function savedVacancies()
-    {
-        return $this->hasMany(SavedVacancy::class);
+        return $this->hasOne(Candidate::class);
     }
 }
