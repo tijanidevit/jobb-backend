@@ -28,6 +28,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('api', [
             HandleCors::class,
             EnsureAcceptJsonMiddleware::class,
+        ])
+        ->alias([
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
     })
 

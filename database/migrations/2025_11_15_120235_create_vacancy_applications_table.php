@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('vacancy_applications', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignId('vacancy_id');
-            $table->foreignId('user_id');
+            $table->foreignUuid('vacancy_id');
+            $table->foreignUuid('user_id');
 
             $table->string('resume');
-            $table->fullText('cover_letter')->nullable();
+            $table->text('cover_letter')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });

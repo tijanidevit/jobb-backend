@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('company_verifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignId('company_id');
+            $table->foreignUuid('company_id');
 
             $table->string('document_type'); // cac, id_card, utility_bill
             $table->string('document'); // file path of uploaded doc

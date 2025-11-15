@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\HasCreator;
 use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vacancy extends Model
 {
-    use HasUuids, HasCreator, HasSlug, HasFactory;
+    use HasUuids, HasSlug, HasFactory;
 
     protected $slog_source = 'title';
     protected $casts = [

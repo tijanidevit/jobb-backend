@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('saved_vacancies', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignId('vacancy_id');
-            $table->foreignId('user_id');
+            $table->foreignUuid('vacancy_id');
+            $table->foreignUuid('user_id');
 
             $table->timestamps();
 
             $table->unique(['vacancy_id', 'user_id']);
-            $table->timestamps();
         });
     }
 

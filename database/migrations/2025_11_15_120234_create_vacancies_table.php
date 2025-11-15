@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('vacancies', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignId('company_id');
+            $table->foreignUuid('company_id');
 
             $table->string('title');
             $table->string('slug')->unique();
 
-            $table->fullText('description');
+            $table->text('description');
             $table->string('location');
             $table->string('type'); // full_time, remote, contract, hybrid, internship
 

@@ -13,10 +13,17 @@ class AuthService extends ApiResponse
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'role' => $data['role'],
             'password' => $data['password'],
         ]);
 
-        return $this->createdResponse('User registered successfully', $user);
+        Auth::login($user);
+        $token = $user->createToken('api-token')->plainTextToken;
+
+        return $this->createdResponse('User registered successfully', [
+            'user' => $user,
+            'token' => $token
+        ]);
     }
 
     public function login(array $data)
@@ -38,10 +45,5 @@ class AuthService extends ApiResponse
     {
         $user->currentAccessToken()->delete();
         return $this->successMessageResponse('Logged out successfully');
-    }
-
-    public function me($user)
-    {
-        return $this->successResponse('User retrieved successfully', $user);
     }
 }
