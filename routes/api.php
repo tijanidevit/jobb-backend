@@ -22,8 +22,6 @@ Route::name('auth.')->group(function () {
         Route::post('reset', [PasswordController::class, 'reset'])->middleware('throttle:10,10')->name('reset');
     });
 
-
-
     Route::post('social/{provider}', [SocialLoginController::class, 'getUrl']);
     Route::post('social/{provider}/callback', [SocialLoginController::class, 'handleCallback']);
 });
