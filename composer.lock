@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "205f53370afa6becfb0d025b1894684e",
+    "content-hash": "374fd6b9dfd23742fecbfa601d994bed",
     "packages": [
         {
             "name": "brick/math",
@@ -7138,16 +7138,16 @@
         },
         {
             "name": "tijanidevit/query-filter",
-            "version": "v0.02",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tijanidevit/laravel-query-filter.git",
-                "reference": "b316fff57911490ed5af91bf0154950479d917b2"
+                "reference": "35bff2ee32ceaaeb8bd5ecc66e4a1ce2fd195fa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tijanidevit/laravel-query-filter/zipball/b316fff57911490ed5af91bf0154950479d917b2",
-                "reference": "b316fff57911490ed5af91bf0154950479d917b2",
+                "url": "https://api.github.com/repos/tijanidevit/laravel-query-filter/zipball/35bff2ee32ceaaeb8bd5ecc66e4a1ce2fd195fa1",
+                "reference": "35bff2ee32ceaaeb8bd5ecc66e4a1ce2fd195fa1",
                 "shasum": ""
             },
             "require-dev": {
@@ -7179,9 +7179,9 @@
             "description": "A simple, expressive, and powerful Laravel package that provides dynamic Eloquent models filters with clean syntax. It helps build reusable, maintainable, and readable query logic in Laravel apps.",
             "support": {
                 "issues": "https://github.com/tijanidevit/laravel-query-filter/issues",
-                "source": "https://github.com/tijanidevit/laravel-query-filter/tree/v0.02"
+                "source": "https://github.com/tijanidevit/laravel-query-filter/tree/v1.0.0"
             },
-            "time": "2025-08-17T21:29:23+00:00"
+            "time": "2025-11-16T14:32:03+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

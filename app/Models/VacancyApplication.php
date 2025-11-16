@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\VacancyApplicationStatusEnum;
+use App\Enums\Vacancy\Vacancy\VacancyApplicationStatusEnum;
 use App\Traits\HasCreator;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,5 +21,9 @@ class VacancyApplication extends Model
 
     public function scopeHired($query) : Builder {
         return $query->where('status', VacancyApplicationStatusEnum::HIRED->value);
+    }
+
+    public function scopeInterview($query) : Builder {
+        return $query->where('status', VacancyApplicationStatusEnum::INTERVIEW->value);
     }
 }

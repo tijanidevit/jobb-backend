@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Enums\User\UserRoleEnum;
 use App\Helpers\ApiResponse;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
@@ -24,6 +25,19 @@ class AuthService extends ApiResponse
         ]);
 
         Auth::login($user);
+
+        $role = $data['role'];
+
+        if ($role == UserRoleEnum::CANDIDATE->value) {
+            $user->candidate()->create([]);
+        }
+        else {
+            if ($role == UserRoleEnum::COMPANY->value) {
+                $user->company()->create([
+                    'name' => $data['name'],
+                ]);
+            }
+        }
 
         $token = $user->createToken('api-token')->plainTextToken;
 

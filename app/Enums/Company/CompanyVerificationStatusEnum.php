@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Company;
 
-enum VacancyApplicationStatusEnum: string
+enum CompanyVerificationStatusEnum: string
 {
     case PENDING = 'pending';
-    case REVIEWED = 'reviewed';
-    case INTERVIEW = 'interview';
-    case OFFER_SENT = 'offer_sent';
-    case HIRED = 'hired';
+    case APPROVED = 'approved';
     case REJECTED = 'rejected';
 
 

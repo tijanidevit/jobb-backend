@@ -27,7 +27,7 @@ class CompanyFactory extends Factory
             'website' => $this->faker->url(),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
-            'is_verified' => $this->faker->boolean(50),
+            'is_verified' => $this->faker->boolean(99),
         ];
     }
 }

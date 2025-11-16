@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Jobs\Resources;
+namespace App\Http\Resources\Vacancy;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -11,22 +11,30 @@ class VacancyResource extends JsonResource
         return [
             'id' => $this->id,
             'company_id' => $this->company_id,
-            'category_id' => $this->category_id,
+            'category' => $this->category,
             'title' => $this->title,
             'slug' => $this->slug,
-            'description' => $this->description,
+            'description' => $this->whenNotNull($this->description),
             'location' => $this->location,
-            'job_type' => $this->job_type,
-            'salary_from' => $this->salary_from,
-            'salary_to' => $this->salary_to,
-            'salary_currency' => $this->salary_currency,
+            'type' => $this->type,
+            'salary_min' => $this->salary_min,
+            'salary_max' => $this->salary_max,
+            'salary_currency' => $this->salary_currency ?? 'NGN',
             'is_active' => $this->is_active,
+
+            'level' => $this->level,
+            'work_mode' => $this->work_mode,
+            'requirements' => $this->whenNotNull($this->requirements),
+            'benefits' => $this->whenNotNull($this->benefits),
+            'questions' => $this->whenNotNull($this->questions),
+
+
             'expires_at' => $this->expires_at,
-            'approval_note' => $this->approval_note,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 
-            'company' => new CompanyResource($this->whenLoaded('company')),
+            'company' => $this->whenLoaded('company'),
+            'application' => $this->whenLoaded('application'),
         ];
     }
 }

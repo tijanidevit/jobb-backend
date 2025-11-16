@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\User\UserRoleEnum;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -51,6 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRoleEnum::class,
         ];
     }
 

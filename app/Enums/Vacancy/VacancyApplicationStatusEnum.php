@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums;
+namespace App\Enums\Vacancy;
 
-enum ApplicationStatusEnum: string
+enum VacancyApplicationStatusEnum: string
 {
     case PENDING = 'pending';
     case REVIEWED = 'reviewed';
@@ -12,21 +12,19 @@ enum ApplicationStatusEnum: string
     case REJECTED = 'rejected';
 
 
+
     public static function toArray(): array
     {
-        return array_values(array_map(
-            fn ($case) => $case->value,
-            self::cases()
-        ));
+        return array_map(fn ($case) => $case->value, self::cases());
     }
 
     public static function selection(): array
     {
-        return array_values(array_map(function ($case) {
+        return array_map(function ($case) {
             return [
                 'label' => str_replace('_', ' ', ucwords(strtolower($case->value))),
                 'value' => $case->value,
             ];
-        }, self::cases()));
+        }, self::cases());
     }
 }

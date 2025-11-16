@@ -10,12 +10,13 @@ class RoleMiddleware
     {
         $user = auth()->user();
 
-        if (!$user || $user->role !== $role) {
+        if (!$user || $user->role->value !== $role) {
             return response()->json([
                 'success' => false,
-                'message' => 'Unauthorized.'
+                'message' => 'Unauthorized. You do not have the required role.'
             ], 403);
         }
+
 
         return $next($request);
     }
