@@ -27,6 +27,7 @@ class VacancyController extends Controller
             'company',
             'application' => fn($query) => $query->where('candidate_id', $candidate->id)
         ])
+        ->withCount('applications')
         ->active()
         ->whereSlug($slug)
         ->first();

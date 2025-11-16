@@ -35,6 +35,7 @@ class VacancyResource extends JsonResource
 
             'company' => $this->whenLoaded('company'),
             'application' => $this->whenLoaded('application'),
+            'applications_count' => $this->whenCounted('applications_count'),
         ];
     }
 }
